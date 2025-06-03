@@ -179,7 +179,7 @@
               <?php if ($level == 'admin' || $level == 'user') :?>
                 <li class="nav-item"> 
               <a href="<?= base_url('produk');?>" class="nav-link">
-                  <i class="far fa-newspaper nav-icon"></i>
+                  <i class="fas fa-box nav-icon"></i>
                   <p>Produk</p>
                 </a>
               </li>
@@ -187,9 +187,9 @@
               
               <?php if($level == 'admin'): ?>
               <li class="nav-item">
-              <a href="<?=base_url('kategori');?>" class="nav-link">
+              <a href="<?=base_url('salesorder');?>" class="nav-link">
                   <i class="far fa-folder nav-icon"></i>
-                  <p>kategori</p>
+                  <p>Sales</p>
                 </a>
               </li>
               <?php endif; ?>
