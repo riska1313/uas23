@@ -203,15 +203,6 @@
               </li>
               <?php endif; ?>
 
-              <?php if($level == 'admin'): ?>
-              <li class="nav-item">
-              <a href="<?=base_url('matkul');?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Mata Kuliah</p>
-                </a>
-              </li>
-              <?php endif; ?>
-              </ul>
               <li class = "nav-item">
                 <a href="<?=site_url('auth/logout') ?>" class="nav-link">
                 <i class="nav-icon fas fa-sign-out-alt"></i>
