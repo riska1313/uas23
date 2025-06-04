@@ -1,75 +1,99 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class produk extends MY_Controller{
+class Produk extends MY_Controller {
 
     public function __construct(){
         parent::__construct();
-        $this->load->model('produk_model');
+        $this->load->model('Produk_model');
+        $this->load->library('form_validation');
     }
+
     public function index(){
-
-        $data['produk']=$this->produk_model->get_all_produk();
+        $data['produk'] = $this->Produk_model->get_all_produk();
         $this->load->view('templates/header');
-        $this->load->view('produk/index' ,$data);
+        $this->load->view('produk/index', $data);
         $this->load->view('templates/footer');
     }
+
+    // Tampilkan form tambah produk
     public function tambah(){
-        $data['produk']=$this->produk_model->get_all_produk();
         $this->load->view('templates/header');
-        $this->load->view('produk/form_produk',$data);
+        $this->load->view('produk/form_produk');
         $this->load->view('templates/footer');
     }
+
+    // Proses simpan produk baru
     public function insert(){
-        $kode=$this->input->post('kode_produk');
-        $nama=$this->input->post('nama_produk');
-        $harga=$this->input->post('harga');
-        $stok=$this->input->post('stok');
+        $this->form_validation->set_rules('kode_produk', 'Kode Produk', 'required');
+        $this->form_validation->set_rules('nama_produk', 'Nama Produk', 'required');
+        $this->form_validation->set_rules('harga', 'Harga', 'required|numeric');
+        $this->form_validation->set_rules('stok', 'Stok', 'required|integer');
 
-
-        $data=array(
-            'kode_produk'=>$kode,
-            'nama_produk'=>$nama,
-            'harga'=>$harga,
-            'stok'=>$stok,
-        );
-
-        $result=$this->produk_model->insert_produk($data);
-
-        if($result){
-            $this->session->set_flashdata('success','produk berhasil disimpan');
-            redirect('produk');
-        }else{
-            $this->session->set_flashdata('error','produk gagal disimpan');
-            redirect('produk');
-        }
-    }
-    public function hapus($idproduk){
-        $this->produk_model->delete_produk($idproduk);
-        redirect('produk');
-        }
-    public function edit($idproduk){
-        $data['produk']=$this->produk_model->get_produk_by_id($idproduk);
-        $this->load->view('templates/header');
-        $this->load->view('produk/edit_produk',$data);
-        $this->load->view('templates/footer');
-        }
-    public function update($id){
-        $this->form_validation->set_rules('kode_produk','kode_produk','required');
-        $this->form_validation->set_rules('nama_produk','nama_produk','required');
-        $this->form_validation->set_rules('harga','harga','required');
-        $this->form_validation->set_rules('stok','stok','required');
-        if ($this->form_validation->run() === FALSE){
-            $this->index($id);
-        }else{
+        if ($this->form_validation->run() == FALSE) {
+            $this->tambah();
+        } else {
             $data = [
                 'kode_produk' => $this->input->post('kode_produk'),
                 'nama_produk' => $this->input->post('nama_produk'),
                 'harga' => $this->input->post('harga'),
                 'stok' => $this->input->post('stok')
             ];
-            $this->produk_model->update_produk($id, $data);
+            $insert = $this->Produk_model->insert_produk($data);
+            if ($insert) {
+                $this->session->set_flashdata('success', 'Produk berhasil disimpan.');
+            } else {
+                $this->session->set_flashdata('error', 'Gagal menyimpan produk.');
+            }
             redirect('produk');
         }
     }
+
+    // Tampilkan form edit produk
+    public function edit($idproduk){
+        $data['produk'] = $this->Produk_model->get_produk_by_id($idproduk);
+        if (!$data['produk']) {
+            show_404();
+        }
+        $this->load->view('templates/header');
+        $this->load->view('produk/edit_produk', $data);
+        $this->load->view('templates/footer');
     }
+
+    // Proses update produk
+    public function update($idproduk){
+        $this->form_validation->set_rules('kode_produk', 'Kode Produk', 'required');
+        $this->form_validation->set_rules('nama_produk', 'Nama Produk', 'required');
+        $this->form_validation->set_rules('harga', 'Harga', 'required|numeric');
+        $this->form_validation->set_rules('stok', 'Stok', 'required|integer');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->edit($idproduk);
+        } else {
+            $data = [
+                'kode_produk' => $this->input->post('kode_produk'),
+                'nama_produk' => $this->input->post('nama_produk'),
+                'harga' => $this->input->post('harga'),
+                'stok' => $this->input->post('stok')
+            ];
+            $update = $this->Produk_model->update_produk($idproduk, $data);
+            if ($update) {
+                $this->session->set_flashdata('success', 'Produk berhasil diupdate.');
+            } else {
+                $this->session->set_flashdata('error', 'Gagal mengupdate produk.');
+            }
+            redirect('produk');
+        }
+    }
+
+    // Hapus produk
+    public function hapus($idproduk){
+        $delete = $this->Produk_model->delete_produk($idproduk);
+        if ($delete) {
+            $this->session->set_flashdata('success', 'Produk berhasil dihapus.');
+        } else {
+            $this->session->set_flashdata('error', 'Gagal menghapus produk.');
+        }
+        redirect('produk');
+    }
+}

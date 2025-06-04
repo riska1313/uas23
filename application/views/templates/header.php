@@ -175,8 +175,9 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+              <!-- ROLE ADMIN -->
             <ul class="nav nav-treeview">
-              <?php if ($level == 'admin' || $level == 'user') :?>
+              <?php if ($level == 'admin' || $level == 'sales') :?>
                 <li class="nav-item"> 
               <a href="<?= base_url('produk');?>" class="nav-link">
                   <i class="fas fa-box nav-icon"></i>
@@ -187,18 +188,47 @@
               
               <?php if($level == 'admin'): ?>
               <li class="nav-item">
-              <a href="<?=base_url('salesorder');?>" class="nav-link">
-                  <i class="far fa-folder nav-icon"></i>
-                  <p>Sales</p>
+              <a href="<?=base_url('pelanggan');?>" class="nav-link">
+                  <i class="fas fa-users nav-icon"></i>
+                  <p>Pelanggan</p>
                 </a>
               </li>
               <?php endif; ?>
 
                <?php if($level == 'admin'): ?>
               <li class="nav-item">
-              <a href="<?=base_url('berita/laporan');?>" class="nav-link">
+              <a href="<?=base_url('salesorder');?>" class="nav-link">
+                  <i class="fas fa-user-tie nav-icon"></i>
+                  <p>Sales Person</p>
+                </a>
+              </li>
+              <?php endif; ?>
+
+              <?php if($level == 'admin'): ?>
+              <li class="nav-item">
+              <a href="<?=base_url('laporan');?>" class="nav-link">
                   <i class="far fa-newspaper nav-icon"></i>
-                  <p>laporan</p>
+                  <p>Laporan</p>
+                </a>
+              </li>
+              <?php endif; ?>
+              
+              <!-- ROLE SALES -->
+                 <?php if($level == 'sales'): ?>
+              <li class="nav-item">
+              <a href="<?=base_url('salesorder');?>" class="nav-link">
+                  <i class="far fa-folder nav-icon"></i>
+                  <p>Sales Order Saya</p>
+                </a>
+              </li>
+              <?php endif; ?>
+
+              <!-- ROLE MANAGER -->
+                <?php if($level == 'manager'): ?>
+              <li class="nav-item">
+              <a href="<?=base_url('laporan');?>" class="nav-link">
+                  <i class="far fa-newspaper nav-icon"></i>
+                  <p>Laporan</p>
                 </a>
               </li>
               <?php endif; ?>
