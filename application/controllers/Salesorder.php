@@ -25,7 +25,7 @@ class Salesorder extends CI_Controller {
     public function tambah() {
         $data['produk'] = $this->Produk_model->get_all_produk();
         $data['pelanggan'] = $this->Pelanggan_model->get_all_pelanggan();
-        $data['sales'] = $this->Sales_model->get_all();
+        $data['sales'] = $this->Sales_model->get_all_sales();
 
         $this->load->view('templates/header');
         $this->load->view('salesorder/form_salesorder', $data);
@@ -57,7 +57,7 @@ class Salesorder extends CI_Controller {
             if (!$idproduk || !$jumlah[$key]) continue;
 
             $jumlah_produk = intval($jumlah[$key]);
-            $produk_detail = $this->Produk_model->get_by_id($idproduk);
+            $produk_detail = $this->Produk_model->get_produk_by_id($idproduk);
             $subtotal = $produk_detail['harga'] * $jumlah_produk;
             $total_harga += $subtotal;
 
@@ -93,12 +93,12 @@ class Salesorder extends CI_Controller {
             show_404();
         }
 
-        $data['produk'] = $this->Produk_model->get_all();
-        $data['pelanggan'] = $this->Pelanggan_model->get_all();
-        $data['sales'] = $this->Sales_model->get_all();
+        $data['produk'] = $this->Produk_model->get_all_produk();
+        $data['pelanggan'] = $this->Pelanggan_model->get_all_pelanggan();
+        $data['sales'] = $this->Sales_model->get_all_sales();
 
         $this->load->view('templates/header');
-        $this->load->view('salesorder/form_edit', $data);
+        $this->load->view('salesorder/edit_salesorder', $data);
         $this->load->view('templates/footer');
     }
 
