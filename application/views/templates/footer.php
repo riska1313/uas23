@@ -45,79 +45,83 @@
 
 <script>
   $(document).ready(function() {
-  const table = $('#datatable').DataTable({
-    responsive: true,
-    lengthChange: true,
-    autoWidth: false,
-    dom: 'Bfrtip',
-    buttons: [
-      {
-        extend: 'excelHtml5',
-        className: 'btn btn-success btn-sm',
-        title: 'Daftar_Berita'
-      },
-      {
-        extend: 'pdfHtml5',
-        className: 'btn btn-danger btn-sm',
-        title: 'Daftar_Berita',
-        orientation: 'landscape',
-        pageSize: 'A4'
-      },
-      {
-        extend: 'print',
-        className: 'btn btn-info btn-sm',
-        title: 'Daftar_Berita'
-      }
-    ]
-  });
-  table.buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
+    // Ambil judul halaman dari elemen dengan id page-title
+    const exportTitle = $('#page-title').length ? $('#page-title').text().replace(/\s+/g, '_') : 'Data_Export';
 
-  $('.summernote').summernote({
-    height: 300,
-    toolbar:[
-      ['style',['style']],
-      ['font', ['bold','underline','italic','clear']],
-      ['color',['color']],
-      ['para',['ul','ol','paragraph']],
-      ['table',['table']],
-      ['insert',['link','picture','video']],
-      ['view',['fullscreen','codeview','help']]
-    ],
-    callbacks: {
-      onImageUpload: function (files){
-        for (let i =0; i <files.length; i++){
-          uploadSummernoteImage(files[i]);
+    const table = $('#datatable').DataTable({
+      responsive: true,
+      lengthChange: true,
+      autoWidth: false,
+      dom: 'Bfrtip',
+      buttons: [
+        {
+          extend: 'excelHtml5',
+          className: 'btn btn-success btn-sm',
+          title: exportTitle
+        },
+        {
+          extend: 'pdfHtml5',
+          className: 'btn btn-danger btn-sm',
+          title: exportTitle,
+          orientation: 'landscape',
+          pageSize: 'A4'
+        },
+        {
+          extend: 'print',
+          className: 'btn btn-info btn-sm',
+          title: exportTitle
+        }
+      ]
+    });
+
+    table.buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
+
+    $('.summernote').summernote({
+      height: 300,
+      toolbar:[
+        ['style',['style']],
+        ['font', ['bold','underline','italic','clear']],
+        ['color',['color']],
+        ['para',['ul','ol','paragraph']],
+        ['table',['table']],
+        ['insert',['link','picture','video']],
+        ['view',['fullscreen','codeview','help']]
+      ],
+      callbacks: {
+        onImageUpload: function (files){
+          for (let i = 0; i < files.length; i++){
+            uploadSummernoteImage(files[i]);
+          }
         }
       }
-    }
-  });
+    });
 
-  function uploadSummernoteImage(file) {
-  let data = new FormData();
-  data.append('image', file);
-  
-  $.ajax({
-    url: '<?= base_url('berita/upload_summernote_image'); ?>',
-    type: 'POST',
-    data: data,
-    contentType: false,
-    cache: false,
-    processData: false,
-    success: function(response) {
-      try {
-        let imageUrl = JSON.parse(response).url;
-        $('.summernote').summernote('insertImage', imageUrl);
-      } catch (e) {
-        console.error('Error parsing JSON response:', e);
-        console.log('Raw response:', response);
-      }
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-      console.error('textStatus, errorThrown');
+    function uploadSummernoteImage(file) {
+      let data = new FormData();
+      data.append('image', file);
+      
+      $.ajax({
+        url: '<?= base_url('berita/upload_summernote_image'); ?>',
+        type: 'POST',
+        data: data,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function(response) {
+          try {
+            let imageUrl = JSON.parse(response).url;
+            $('.summernote').summernote('insertImage', imageUrl);
+          } catch (e) {
+            console.error('Error parsing JSON response:', e);
+            console.log('Raw response:', response);
+          }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.error('textStatus, errorThrown');
+        }
+      });
     }
   });
-}
-});
 </script>
 </body>
 </html>
