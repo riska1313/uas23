@@ -27,14 +27,12 @@
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
-
       <?php if ($this->session->flashdata('error')): ?>
         <p style="color:red;"> <?= $this->session->flashdata('error'); ?> </p>
-      <?php endif; ?>
-
+    <?php endif; ?>
       <form action="<?= site_url('auth/process_login') ?>" method="post">
         <div class="input-group mb-3">
-          <input type="text" name="username" class="form-control" placeholder="Username">
+          <input type="text" class="form-control" name="username" placeholder="Username">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -42,7 +40,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control"name="password" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -58,13 +56,14 @@
               </label>
             </div>
           </div>
+          <!-- /.col -->
           <div class="col-4">
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
           </div>
+          <!-- /.col -->
         </div>
       </form>
-
-      <p class="mb-0 mt-3">
+      <p class="mb-0">
         <a href="<?= base_url('auth/register'); ?>" class="text-center">Register a new membership</a>
       </p>
     </div>

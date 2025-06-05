@@ -177,7 +177,7 @@
             </a>
               <!-- ROLE ADMIN -->
             <ul class="nav nav-treeview">
-              <?php if ($level == 'admin' || $level == 'sales') :?>
+              <?php if ($level == 'admin') :?>
                 <li class="nav-item"> 
               <a href="<?= base_url('produk');?>" class="nav-link">
                   <i class="fas fa-box nav-icon"></i>
@@ -219,6 +219,15 @@
               <a href="<?=base_url('salesorder');?>" class="nav-link">
                   <i class="far fa-folder nav-icon"></i>
                   <p>Sales Order Saya</p>
+                </a>
+              </li>
+              <?php endif; ?>
+
+              <?php if($level == 'sales'): ?>
+              <li class="nav-item">
+              <a href="<?=base_url('sales');?>" class="nav-link">
+                  <i class="far fa-folder nav-icon"></i>
+                  <p>Sales</p>
                 </a>
               </li>
               <?php endif; ?>
