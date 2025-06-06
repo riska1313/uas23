@@ -59,7 +59,7 @@ class Produk extends MY_Controller {
     }
 
     public function update($id){
-        $this->form_validation->set_rules('kode_produk', 'Kode Produk', 'required');
+        $this->form_validation->set_rules('kode_produk', 'Kode Produk', 'required|is_unique[produk.kode_produk]');
         $this->form_validation->set_rules('nama_produk', 'Nama Produk', 'required');
         $this->form_validation->set_rules('harga', 'Harga', 'required');
         $this->form_validation->set_rules('stok', 'Stok', 'required');

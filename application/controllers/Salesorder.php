@@ -129,6 +129,27 @@ public function update_status($id)
             redirect('salesorder/tambah');
         }
     }
+   // Menampilkan form laporan
+    public function laporan() {
+        $this->load->view('templates/header');
+        $this->load->view('salesorder/laporan_form');
+        $this->load->view('templates/footer');
+    }
+
+    // Cetak laporan berdasarkan tanggal input dari form
+    public function cetak_laporan() {
+        $tanggal_dari = $this->input->post('tanggal_dari');
+        $tanggal_sampai = $this->input->post('tanggal_sampai');
+
+        // Ambil data laporan dari model
+        $data['salesorder'] = $this->Salesorder_model->get_laporan_salesorder($tanggal_dari, $tanggal_sampai);
+        $data['tanggal_dari'] = $tanggal_dari;
+        $data['tanggal_sampai'] = $tanggal_sampai;
+
+        $this->load->view('templates/header');
+        $this->load->view('salesorder/laporan_hasil', $data);
+        $this->load->view('templates/footer');
+    }
 
 
 
