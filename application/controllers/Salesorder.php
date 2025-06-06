@@ -31,6 +31,50 @@ class Salesorder extends CI_Controller {
         $this->load->view('salesorder/form_salesorder', $data);
         $this->load->view('templates/footer');
     }
+    public function edit($id)
+{
+    $this->load->model('Salesorder_model');
+    $this->load->model('Pelanggan_model');
+    $this->load->model('Sales_model');
+    $this->load->model('Produk_model');
+
+    $data['salesorder'] = $this->Salesorder_model->getById($id);
+    $data['detail'] = $this->Salesorder_model->getDetailById($id);
+    $data['pelanggan'] = $this->Pelanggan_model->get_all_pelanggan();
+    $data['sales'] = $this->Sales_model->get_all_sales();
+    $data['produk'] = $this->Produk_model->get_all_produk();
+
+    if (!$data['salesorder']) {
+        show_404(); // jika id tidak ditemukan
+    }
+
+    $this->load->view('templates/header');
+    $this->load->view('salesorder/edit_salesorder', $data);
+    $this->load->view('templates/footer');
+}
+
+public function edit_status($id)
+{
+    $data['salesorder'] = $this->Salesorder_model->getById($id);
+
+    if (!$data['salesorder']) {
+        show_404();
+    }
+
+    $this->load->view('template/header');
+    $this->load->view('template/sidebar');
+    $this->load->view('salesorder/edit_status', $data);
+    $this->load->view('template/footer');
+}
+public function update_status($id)
+{
+    $status = $this->input->post('status');
+
+    $this->Salesorder_model->updateSalesOrder($id, ['status' => $status]);
+
+    $this->session->set_flashdata('success', 'Status sales order berhasil diperbarui.');
+    redirect('salesorder');
+}
 
     // Simpan data sales order baru
     public function insert() {
@@ -86,21 +130,7 @@ class Salesorder extends CI_Controller {
         }
     }
 
-    // Form edit sales order
-    public function edit($idso) {
-        $data['order'] = $this->Salesorder_model->get_order_by_id($idso);
-        if (!$data['order']) {
-            show_404();
-        }
 
-        $data['produk'] = $this->Produk_model->get_all_produk();
-        $data['pelanggan'] = $this->Pelanggan_model->get_all_pelanggan();
-        $data['sales'] = $this->Sales_model->get_all_sales();
-
-        $this->load->view('templates/header');
-        $this->load->view('salesorder/edit_salesorder', $data);
-        $this->load->view('templates/footer');
-    }
 
     // Update sales order
     public function update($idso) {
@@ -128,7 +158,7 @@ class Salesorder extends CI_Controller {
             if (!$idproduk || !$jumlah[$key]) continue;
 
             $jumlah_produk = intval($jumlah[$key]);
-            $produk_detail = $this->Produk_model->get_by_id($idproduk);
+            $produk_detail = $this->Produk_model->get_produk_by_id($idproduk);
             $subtotal = $produk_detail['harga'] * $jumlah_produk;
             $total_harga += $subtotal;
 

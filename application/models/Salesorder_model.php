@@ -110,4 +110,13 @@ class Salesorder_model extends CI_Model {
 
         return $this->db->trans_status();
     }
+    public function getById($id)
+{
+    return $this->db->get_where('salesorder', ['idso' => $id])->row_array();
+}
+
+public function getDetailById($id)
+{
+    return $this->db->get_where('detail_so', ['idso' => $id])->result_array();
+}
 }
