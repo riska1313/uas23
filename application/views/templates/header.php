@@ -199,7 +199,7 @@
               <li class="nav-item">
               <a href="<?=base_url('salesorder');?>" class="nav-link">
                   <i class="fas fa-user-tie nav-icon"></i>
-                  <p>Sales Person</p>
+                  <p>Sales Order</p>
                 </a>
               </li>
               <?php endif; ?>
