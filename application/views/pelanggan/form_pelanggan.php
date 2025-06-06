@@ -1,7 +1,7 @@
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
-            <h1 id="page-title">Tambah Pelanggan</h1> <!-- Tambahkan id="page-title" di sini -->
+            <h1 id="page-title">Tambah Pelanggan</h1> 
         </div>
     </section>
 
