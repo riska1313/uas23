@@ -32,14 +32,14 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="<?= base_url('statusorder/update/' . $status_order['idstatus']); ?>" method="POST">
+                <form action="<?= base_url('Salesorder/edit/' . $salesorder['status']); ?>" method="POST">
                     <div class="form-group">
                         <label for="status">Status</label>
-                        <input type="text" class="form-control" name="status" value="<?= $status_order['status']; ?>" id="status" placeholder="Status" required>
+                        <input type="text" class="form-control" name="status" value="<?= $salesorder['status']; ?>" id="status" placeholder="Status" required>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="<?= base_url('statusorder'); ?>" class="btn btn-secondary">Batal</a>
+                    <a href="<?= base_url('salesorder'); ?>" class="btn btn-secondary">Batal</a>
                 </form>
             </div>
             <div class="card-footer">

@@ -30,7 +30,6 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
-
                     <div class="form-group">
                         <label for="idsales">Sales</label>
                         <select name="idsales" id="idsales" class="form-control" required>

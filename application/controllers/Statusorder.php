@@ -34,8 +34,8 @@ class Statusorder extends MY_Controller {
         redirect('statusorder');
     }
 
-    public function edit($idstatus) {
-        $data['status_order'] = $this->Statusorder_model->get_status_by_id($idstatus);
+    public function edit($id) {
+        $data['status_order'] = $this->Statusorder_model->get_status_by_id($id);
         $this->load->view('templates/header');
         $this->load->view('statusorder/edit_status', $data);
         $this->load->view('templates/footer');

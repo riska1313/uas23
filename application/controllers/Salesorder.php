@@ -43,6 +43,7 @@ class Salesorder extends CI_Controller {
     $data['pelanggan'] = $this->Pelanggan_model->get_all_pelanggan();
     $data['sales'] = $this->Sales_model->get_all_sales();
     $data['produk'] = $this->Produk_model->get_all_produk();
+    $data['status'] = $this->Produk_model->get_all_produk();
 
     if (!$data['salesorder']) {
         show_404(); // jika id tidak ditemukan
@@ -61,10 +62,9 @@ public function edit_status($id)
         show_404();
     }
 
-    $this->load->view('template/header');
-    $this->load->view('template/sidebar');
+    $this->load->view('templates/header');
     $this->load->view('salesorder/edit_status', $data);
-    $this->load->view('template/footer');
+    $this->load->view('templates/footer');
 }
 public function update_status($id)
 {
