@@ -209,7 +209,7 @@ public function update_status($id)
     }
 
     // Hapus sales order
-    public function hapus($idso) {
+    public function delete($idso) {
         if ($this->Salesorder_model->delete_order($idso)) {
             $this->session->set_flashdata('success', 'Sales order berhasil dihapus');
         } else {

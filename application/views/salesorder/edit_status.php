@@ -1,5 +1,4 @@
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -13,15 +12,13 @@
                     </ol>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
+        </div>
     </section>
 
     <section class="content">
-        <!-- Default box -->
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Update Status</h3>
-
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                         <i class="fas fa-minus"></i>
@@ -31,19 +28,28 @@
                     </button>
                 </div>
             </div>
+
             <div class="card-body">
-                <form action="<?= base_url('Salesorder/edit/' . $salesorder['status']); ?>" method="POST">
+                <form action="<?= base_url('salesorder/update_status/' . $salesorder['idso']); ?>" method="POST">
                     <div class="form-group">
                         <label for="status">Status</label>
-                        <input type="text" class="form-control" name="status" value="<?= $salesorder['status']; ?>" id="status" placeholder="Status" required>
+                        <select name="status" id="status" class="form-control" required>
+                            <?php 
+                                $options = ['draft', 'selesai', 'dikirim', 'diabaikan'];
+                                $current = set_value('status', $salesorder['status']);
+                                foreach ($options as $option) {
+                                    $selected = ($option == $current) ? 'selected' : '';
+                                    echo "<option value=\"$option\" $selected>" . ucfirst($option) . "</option>";
+                                }
+                            ?>
+                        </select>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Update</button>
                     <a href="<?= base_url('salesorder'); ?>" class="btn btn-secondary">Batal</a>
                 </form>
             </div>
-            <div class="card-footer">
-            </div>
+            <div class="card-footer"></div>
         </div>
     </section>
 </div>

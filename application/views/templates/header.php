@@ -206,15 +206,6 @@
 
               <?php if($level == 'admin'): ?>
               <li class="nav-item">
-              <a href="<?=base_url('statusorder');?>" class="nav-link">
-                  <i class="fas fa-layer-group nav-icon"></i>
-                  <p>Status</p>
-                </a>
-              </li>
-              <?php endif; ?>
-
-              <?php if($level == 'admin'): ?>
-              <li class="nav-item">
               <a href="<?=base_url('salesorder/laporan');?>" class="nav-link">
                   <i class="far fa-newspaper nav-icon"></i>
                   <p>Laporan</p>

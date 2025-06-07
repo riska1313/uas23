@@ -12,7 +12,7 @@
                 <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
                 <form action="<?= base_url('salesorder/insert') ?>" method="POST" id="formSalesOrder">
                     <div class="form-group">
-                        <label for="kode_so">Kode SO</label>
+                        <label for="kode_so">Kode Order</label>
                         <input type="text" class="form-control" name="kode_so" id="kode_so" required>
                     </div>
 
