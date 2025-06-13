@@ -159,7 +159,7 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
-          <a>Azka Yasyfa Fuadiah</a>
+          <a>Riska Maulidia</a>
         </div>
       </div>
 
@@ -243,7 +243,7 @@
               <?php endif; ?>
 
               <li class = "nav-item">
-                <a href="<?=site_url('auth/logout') ?>" class="nav-link">
+                <a href="<?=site_url('auth/logout') ?>" class="nav-link" onclick="return confirm('Apakah Anda yakin ingin logout?');">
                 <i class="nav-icon fas fa-sign-out-alt"></i>
                 <p>Logout</p>
               </a>
